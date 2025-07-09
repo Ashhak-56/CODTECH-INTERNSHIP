@@ -1,0 +1,33 @@
+
+import pandas as pd
+from fpdf import FPDF
+
+# Create sample CSV file
+data = pd.DataFrame({
+    "Name": ["Alice", "Bob", "Charlie"],
+    "Score": [85, 92, 78]
+})
+data.to_csv("sample_data.csv", index=False)
+
+# Read CSV
+df = pd.read_csv("sample_data.csv")
+
+# Create PDF report
+pdf = FPDF()
+pdf.add_page()
+pdf.set_font("Arial", size=12)
+pdf.cell(200, 10, txt="Student Score Report", ln=True, align="C")
+pdf.ln(10)
+
+for index, row in df.iterrows():
+    pdf.cell(200, 10, txt=f"{row['Name']} scored {row['Score']}", ln=True)
+
+pdf.output("task2_report.pdf")
+
+
+Input:-sample_data.csv
+
+Name,Score
+Alice,85
+Bob,92
+Charlie,78
